@@ -36,3 +36,7 @@ h1.loggin-header{
 a.link-register{
     color: #676e72;
 }
+
+p.not-a-member-p, p.parag-login{
+    text-align: center;
+}

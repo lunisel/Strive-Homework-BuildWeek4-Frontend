@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Route, RouteComponentProps } from "react-router-dom";
-import Loggin from "./components/loggin/Loggin";
+import Login from "./components/loggin/Login";
 
 function App() {
   return (
@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
         <Route
           exact
-          path="/loggin"
-          render={(routerProps: RouteComponentProps) => <Loggin {...routerProps} />}
+          path="/login"
+          render={(routerProps: RouteComponentProps) => <Login {...routerProps} />}
         />
       </BrowserRouter>
     </div>
