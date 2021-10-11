@@ -11,14 +11,14 @@ const Loggin = ({history, location,match}:RouteComponentProps) => {
             <div className="content-loggin-cont">
                 <h1 className="loggin-header py-4">LOGIN</h1>
                 <Form onSubmit={()=>{handleSubmit()}}>
-                    <Form.Control type="text" placeholder="Email" className="email-input"/>
-                    <Form.Control type="password" placeholder="Password" className="password-input"/>
-                    <Form.Check type="checkbox" label="Remember me" className="check-input"/>
-                    <Button type="submit" className="log-in-btn">LOGIN</Button>
+                    <Form.Control type="text" placeholder="Email" className="email-input my-3"/>
+                    <Form.Control type="password" placeholder="Password" className="password-input my-3"/>
+                    <Form.Check type="checkbox" label="Remember me" className="check-input my-3"/>
+                    <Button type="submit" className="log-in-btn my-2">LOGIN</Button>
                 </Form>
-                <p className="parag-login">Or login with</p>
-                <Button className="OAuth-btn">OAuth</Button>
-                <p className="not-a-member-p">Not a member? <Link to="/signup" className="link-register">Sign up now!</Link></p>
+                <p className="parag-login py-3 m-0">Or login with</p>
+                <Button className="OAuth-btn my-2">OAuth</Button>
+                <p className="not-a-member-p py-4 m-0">Not a member? <Link to="/signup" className="link-register">Sign up now!</Link></p>
             </div>
         </div>
     )

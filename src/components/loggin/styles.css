@@ -32,3 +32,7 @@ h1.loggin-header{
     text-align: center;
     font-size: 2rem;
 }
+
+a.link-register{
+    color: #676e72;
+}
