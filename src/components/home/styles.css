@@ -1,0 +1,63 @@
+.home-cont {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9dbd4;
+}
+
+.content-home-cont {
+  width: 90%;
+  height: 90%;
+  background-color: #f8f9fa;
+}
+
+.my-profile {
+  background-color: #ededed;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.profile-img-cont {
+  width: 3rem;
+  height: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+h5.my-profile-h5 {
+  color: #51585c;
+}
+
+.search-cont {
+  background-color: #f6f6f6;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.search-input {
+  border: transparent;
+  border-radius: 1.5rem;
+  height: 2rem;
+}
+
+.side-bar {
+  background-color: white;
+}
+
+.single-chat-cont.row {
+  margin: 0;
+  width: 100%;
+  height: 3rem;
+}
+
+.chat-img-cont.col {
+  height: 3rem;
+  width: 3rem;
+}

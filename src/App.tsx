@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter, Route, RouteComponentProps } from "react-router-dom";
 import Loggin from "./components/loggin/Loggin";
 import SignUp from "./components/signup/SignUp";
+import Home from "./components/home/Home";
 
 function App() {
   return (
@@ -21,6 +22,13 @@ function App() {
           path="/signup"
           render={(routerProps: RouteComponentProps) => (
             <SignUp {...routerProps} />
+          )}
+        />
+        <Route
+          exact
+          path="/"
+          render={(routerProps: RouteComponentProps) => (
+            <Home {...routerProps} />
           )}
         />
       </BrowserRouter>
