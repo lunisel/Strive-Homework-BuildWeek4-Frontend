@@ -8,7 +8,6 @@ import "./styles.css";
 const SignUp = ({ history, location, match }: RouteComponentProps) => {
   const [user, setUser] = useState<UserInt>({
     name: "",
-    username: "",
     email: "",
     password: "",
   });
@@ -30,17 +29,9 @@ const SignUp = ({ history, location, match }: RouteComponentProps) => {
         <Form
           onSubmit={(e: React.FormEvent) => {
             submitSignUp({ e, user });
+            history.push("/");
           }}
         >
-          <Form.Control
-            type="text"
-            placeholder="Username..."
-            className="username-input my-3"
-            value={user.username}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleOnChange(e, "username")
-            }
-          />
           <Form.Control
             type="text"
             placeholder="Email..."
@@ -76,7 +67,7 @@ const SignUp = ({ history, location, match }: RouteComponentProps) => {
         <p className="parag-login py-3 m-0">Or sign-up with</p>
         <Button className="OAuth-btn my-2">OAuth</Button>
         <p className="not-a-member-p pt-4 pb-2 m-0">
-          Already a member?
+          Already a member?{" "}
           <Link to="/login" className="link-login">
             Log in now!
           </Link>

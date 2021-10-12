@@ -1,4 +1,5 @@
-export const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Submitted")
-}
+import { mixLogInInt } from "../../usefull/interfaces";
+
+export const handleSubmit = ({ e, logIn }: mixLogInInt) => {
+  e.preventDefault();
+};
