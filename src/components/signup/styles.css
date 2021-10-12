@@ -1,0 +1,23 @@
+.signup-cont {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d9dbd5;
+}
+
+.content-container-signup {
+  width: 25rem;
+  height: fit-content;
+  background-color: #ffffff;
+  border: solid 1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 5px 5px 10px #b4b6b0a9;
+}
+
+h1.signup-header {
+  text-align: center;
+  font-size: 2rem;
+}
