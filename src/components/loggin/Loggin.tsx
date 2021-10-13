@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { logInInt, mixLogInInt, UserInt, reduxStateInt } from "../../usefull/interfaces";
+import {
+  logInInt,
+  mixLogInInt,
+  UserInt,
+  reduxStateInt,
+} from "../../usefull/interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { addCurrentUser } from "../../redux/actions/user";
 import "./styles.css";
@@ -11,7 +16,7 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
     email: "",
     password: "",
   });
-  
+
   const user = useSelector((state: reduxStateInt) => state.user.currentUser);
   const dispatch = useDispatch();
 
@@ -35,72 +40,72 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
       });
       if (response.ok) {
         let data = await response.json();
-        localStorage.setItem("token", data.refreshToken)
-        let user = await findUserFromEmail(logIn.email)
-        if(user){
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("token2", data.refreshToken);
+        let user = await findUserFromEmail(logIn.email);
+        if (user) {
           dispatch(addCurrentUser(user));
         }
-        
       }
     } catch (err) {
       console.log(err);
     }
   };
-  
+
   const findUserFromEmail = async (email: string) => {
     try {
-      let response = await fetch("http://localhost:3001/users?email="+ email)
-      let data = await response.json()
-      let user: UserInt = data.users[0]
-      return user
+      let response = await fetch("http://localhost:3001/users?email=" + email);
+      let data = await response.json();
+      let user: UserInt = data.users[0];
+      return user;
     } catch (err) {
       console.log(err);
     }
   };
-  
 
   return (
-    <div className="loggin-cont">
-      <div className="content-loggin-cont">
-        <h1 className="loggin-header py-4">LOGIN</h1>
+    <div className='loggin-cont'>
+      <div className='content-loggin-cont'>
+        <h1 className='loggin-header py-4'>LOGIN</h1>
         <Form
           onSubmit={(e: React.FormEvent) => {
             handleSubmit({ e, logIn });
-            setTimeout(function(){history.push("/")}, 1000);
-          }}
-        >
+            setTimeout(function () {
+              history.push("/");
+            }, 1000);
+          }}>
           <Form.Control
-            type="text"
-            placeholder="Email"
-            className="email-input my-3"
+            type='text'
+            placeholder='Email'
+            className='email-input my-3'
             value={logIn.email}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleOnChange(e, "email")
             }
           />
           <Form.Control
-            type="password"
-            placeholder="Password"
-            className="password-input my-3"
+            type='password'
+            placeholder='Password'
+            className='password-input my-3'
             value={logIn.password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleOnChange(e, "password")
             }
           />
           <Form.Check
-            type="checkbox"
-            label="Remember me"
-            className="check-input my-3"
+            type='checkbox'
+            label='Remember me'
+            className='check-input my-3'
           />
-          <Button type="submit" className="log-in-btn my-2">
+          <Button type='submit' className='log-in-btn my-2'>
             LOGIN
           </Button>
         </Form>
-        <p className="parag-login py-3 m-0">Or login with</p>
-        <Button className="OAuth-btn my-2">OAuth</Button>
-        <p className="not-a-member-p py-4 m-0">
+        <p className='parag-login py-3 m-0'>Or login with</p>
+        <Button className='OAuth-btn my-2'>OAuth</Button>
+        <p className='not-a-member-p py-4 m-0'>
           Not a member?{" "}
-          <Link to="/signup" className="link-register">
+          <Link to='/signup' className='link-register'>
             Sign up now!
           </Link>
         </p>
