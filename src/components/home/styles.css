@@ -7,6 +7,11 @@
   background-color: #d9dbd4;
 }
 
+.chat-big-cont {
+  position: relative;
+  height: 100%;
+}
+
 .content-home-cont {
   width: 80%;
   height: 90%;
@@ -58,7 +63,15 @@ h5.my-profile-h5 {
 .search-input {
   border: transparent;
   border-radius: 1.5rem;
+}
+
+.search-input.sidebar {
   height: 2rem;
+}
+
+.search-input.chat {
+  height: 2.8rem;
+  margin-left: 1rem;
 }
 
 .side-bar {
@@ -77,6 +90,15 @@ h5.my-profile-h5 {
   cursor: pointer;
 }
 
+.single-chat-cont.row.active {
+  background-color: #ebebeb;
+}
+
+.separator-chats.m-0 {
+  position: relative;
+  bottom: -0.5rem;
+}
+
 .chat-img-cont.col-2 {
   height: 3rem;
   width: 3rem;
@@ -87,7 +109,7 @@ h5.my-profile-h5 {
   font-weight: 600;
 }
 
-.time-last-message.col-2 {
+.time-last-message.col-3 {
   font-size: 0.8rem;
   color: #666666;
 }
@@ -104,34 +126,71 @@ h5.my-profile-h5 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 5;
 }
 
 .chat-container.p-0.col-8 {
   border-left: solid 1px #dadada94;
-  background-color: #E5DDD5;
 }
 
-.bottom-input-text{
+.chat-messages-cont {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 4rem;
+  padding-top: 4rem;
+}
+
+.chat-content-cont{
+  height: 100%;
+  width: 100%;
+  background-color: #e5ddd5;
+  padding-bottom: 4rem;
+}
+
+.bottom-input-text {
   width: 100%;
   height: 4rem;
   background-color: #ededed;
   position: absolute;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 1.2rem;
 }
 
-.img-name-container, .search-dots-container{
+.img-name-container,
+.search-dots-container {
   display: flex;
   align-items: center;
   height: 100%;
   width: fit-content;
 }
 
-span.name-receiver{
+span.name-receiver {
   font-size: 1.1rem;
   font-weight: 400;
 }
 
-.search-dots{
+.search-dots {
   font-size: 1.2rem;
-  color: #51585C;
+  color: #51585c;
+}
+
+.bottom-icons-bar {
+  font-size: 1.6rem;
+  color: #51585c;
+}
+
+.mic-input {
+  font-size: 1.5rem;
+  color: #51585c;
+  margin-left: 1.5rem;
+}
+
+.received-message{
+  display: flex;
+  width: 40%;
+  height: fit-content;
+  background-color: white;
 }

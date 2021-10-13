@@ -1,5 +1,5 @@
 import { Row, Col, Form } from "react-bootstrap";
-import {BsThreeDotsVertical} from "react-icons/bs"
+import { BsThreeDotsVertical } from "react-icons/bs";
 import "./styles.css";
 
 const Sidebar = () => {
@@ -26,33 +26,80 @@ const Sidebar = () => {
         <Form.Control
           type="text"
           placeholder="Search or start a new chat"
-          className="search-input"
+          className="search-input sidebar"
         />
       </div>
       <div className="open-chats">
-        <Row className="single-chat-cont">
-          <Col xs={2} className="chat-img-cont p-0">
-            <img
-              src="https://placehold.it/100x100"
-              alt="profile picture"
-              className="h-100 w-auto rounded-circle"
-            />
-          </Col>
-          <Col xs={10} className="chat-text-cont p-0 pl-2">
-            <Row className="d-flex justify-content-between w-100 m-0">
-              <Col xs={2} className="p-0 contact-name">
-                Name
-              </Col>
-              <Col xs={2} className="p-0 time-last-message text-right">
-                00:00
-              </Col>
-            </Row>
-            <Row className="w-100 m-0 last-message">Last message</Row>
-          </Col>
-        </Row>
+        <div className="single-chat-and-hr-cont">
+          <Row className="single-chat-cont">
+            <Col xs={2} className="chat-img-cont p-0">
+              <img
+                src="https://placehold.it/100x100"
+                alt="profile picture"
+                className="h-100 w-auto rounded-circle"
+              />
+            </Col>
+            <Col xs={10} className="chat-text-cont p-0 h-100">
+              <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                <Col xs={2} className="p-0 contact-name">
+                  Name
+                </Col>
+                <Col xs={3} className="p-0 time-last-message text-right pr-3">
+                  00:00
+                </Col>
+              </Row>
+              <Row className="w-100 m-0 last-message">Last message</Row>
+              <hr className="separator-chats m-0" />
+            </Col>
+          </Row>
+
+          <Row className="single-chat-cont active">
+            <Col xs={2} className="chat-img-cont p-0">
+              <img
+                src="https://placehold.it/100x100"
+                alt="profile picture"
+                className="h-100 w-auto rounded-circle"
+              />
+            </Col>
+            <Col xs={10} className="chat-text-cont p-0 h-100">
+              <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                <Col xs={2} className="p-0 contact-name">
+                  Name
+                </Col>
+                <Col xs={3} className="p-0 time-last-message text-right pr-3">
+                  yesterday
+                </Col>
+              </Row>
+              <Row className="w-100 m-0 last-message">Last message</Row>
+              <hr className="separator-chats m-0" />
+            </Col>
+          </Row>
+
+          <Row className="single-chat-cont">
+            <Col xs={2} className="chat-img-cont p-0">
+              <img
+                src="https://placehold.it/100x100"
+                alt="profile picture"
+                className="h-100 w-auto rounded-circle"
+              />
+            </Col>
+            <Col xs={10} className="chat-text-cont p-0 h-100">
+              <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                <Col xs={2} className="p-0 contact-name">
+                  Name
+                </Col>
+                <Col xs={3} className="p-0 time-last-message text-right pr-3">
+                  00:00
+                </Col>
+              </Row>
+              <Row className="w-100 m-0 last-message">Last message</Row>
+              <hr className="separator-chats m-0" />
+            </Col>
+          </Row>
+        </div>
       </div>
     </>
   );
 };
 
-export default Sidebar
+export default Sidebar;
