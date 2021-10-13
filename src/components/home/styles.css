@@ -7,12 +7,12 @@
   background-color: #d9dbd4;
 }
 
-a{
-color: inherit;
-text-decoration: none;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-a:hover{
+a:hover {
   color: inherit;
   text-decoration: none;
 }
@@ -331,7 +331,7 @@ svg.caret-left {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-container.chat{
+.dropdown-container.chat {
   top: 3rem;
   right: 0;
 }
@@ -342,11 +342,88 @@ svg.caret-left {
   font-size: 0.9rem;
 }
 
-a.dropdown-links{
+a.dropdown-links {
   display: block;
 }
 
 .dropdown-links:hover {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
+}
+
+/* --------------------------- SETTINGS ------------------------------ */
+
+.top-bar-settings {
+  width: 100%;
+  height: 6.5rem;
+  background-color: #00bfa5;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.arrow-icon-setting {
+  font-size: 1.5rem;
+  color: white;
+  margin-right: 1.6rem;
+}
+
+.profile-setting-span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.img-settings-cont {
+  width: 100%;
+  height: fit-content;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hover-img-cont {
+  width: auto;
+  position: absolute;
+  top: 2rem;
+  bottom: 2rem;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  opacity: 0;
+}
+
+.hover-img-cont img {
+  height: 100%;
+  opacity: 0;
+}
+
+.hover-img-cont:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.hover-change-pic {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.camera-icon {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.change-pic-text{
+  color: white;
+  text-align: center;
 }

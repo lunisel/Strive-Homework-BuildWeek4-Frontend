@@ -2,12 +2,9 @@ import { Row, Col} from "react-bootstrap";
 import Sidebar from "./Sidebar"
 import Chat from "./Chat"
 import "./styles.css";
-import { useSelector } from "react-redux";
-import { reduxStateInt, UserInt } from "../../usefull/interfaces";
-import React from "react";
 
 const Home = () => {
-  const user: UserInt | null = useSelector((state: reduxStateInt) => state.user.currentUser)
+
   return (
     <div className="home-cont">
       <div className="green-background-line"></div>
