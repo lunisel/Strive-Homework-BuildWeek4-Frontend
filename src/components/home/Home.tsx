@@ -14,7 +14,7 @@ const Home = () => {
       <div className="content-home-cont">
         <Row className="m-0 h-100">
           <Col xs={4} className="side-bar p-0">
-            <Sidebar currentUser={user}/>
+            <Sidebar/>
           </Col>
           <Col xs={8} className="chat-container p-0">
             <Chat/>

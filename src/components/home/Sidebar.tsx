@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import { UserInt } from "../../usefull/interfaces";
 import "./styles.css";
 
-type propsInt = {
-  user: UserInt
-}
-const Sidebar= (props: propsInt) => {
+const Sidebar= () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   return (
     <>
