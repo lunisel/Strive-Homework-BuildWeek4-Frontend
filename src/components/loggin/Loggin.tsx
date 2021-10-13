@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { handleSubmit } from "./Login";
-import { logInInt } from "../../usefull/interfaces";
+import { logInInt, mixLogInInt, UserInt } from "../../usefull/interfaces";
+import { useDispatch } from "react-redux";
+import { addCurrentUser } from "../../redux/actions/user";
 import "./styles.css";
 
 const Login = ({ history, location, match }: RouteComponentProps) => {
@@ -10,6 +11,8 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
     email: "",
     password: "",
   });
+  
+  const dispatch = useDispatch();
 
   const handleOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -20,6 +23,40 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
       [key]: e.target.value,
     });
   };
+
+  const handleSubmit = async ({ e, logIn }: mixLogInInt) => {
+    e.preventDefault();
+    try {
+      let response = await fetch("http://localhost:3001/users/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(logIn),
+      });
+      if (response.ok) {
+        let data = await response.json();
+        localStorage.setItem("token", data.refreshToken)
+        let user = await findUserFromEmail(logIn.email)
+        if(user){
+          dispatch(addCurrentUser(user));
+        }
+        
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const findUserFromEmail = async (email: string) => {
+    try {
+      let response = await fetch("http://localhost:3001/users?email="+ email)
+      let data = await response.json()
+      let user: UserInt = data.users
+      return user
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 
   return (
     <div className="loggin-cont">
