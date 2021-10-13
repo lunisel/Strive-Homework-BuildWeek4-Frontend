@@ -1,4 +1,3 @@
-import { RouteComponentProps } from "react-router";
 
 export interface UserInt {
   _id?: string;
@@ -30,4 +29,13 @@ export interface logInInt {
 export interface mixLogInInt {
   logIn: logInInt;
   e: React.FormEvent;
+}
+
+export interface reduxStateInt {
+  user: {
+    currentUser: null | UserInt
+  },
+  chat: {
+    selectedChat: null
+  }
 }
