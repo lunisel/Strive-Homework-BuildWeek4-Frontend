@@ -7,6 +7,7 @@ import "./styles.css";
 const Home = ({ history, location, match }: RouteComponentProps) => {
   return (
     <div className="home-cont">
+      <div className="green-background-line"></div>
       <div className="content-home-cont">
         <Row className="m-0 h-100">
           <Col xs={4} className="side-bar p-0">

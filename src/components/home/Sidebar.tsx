@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { Link } from "react-router-dom"; 
 import "./styles.css";
 
 const Sidebar = () => {
+  const [dropdown, setDropdown] = useState<boolean>(false);
   return (
     <>
       <div className="my-profile">
@@ -18,8 +21,23 @@ const Sidebar = () => {
           <h5 className="m-0 my-profile-h5">My profile</h5>
         </div>
 
-        <div className="right-side">
-          <BsThreeDotsVertical className="three-dots" />
+        <div className={dropdown ? "right-side active":"right-side" }>
+          <BsThreeDotsVertical
+            className="three-dots"
+            onClick={() => {
+              setDropdown(!dropdown);
+              console.log(dropdown);
+            }}
+          />
+          {dropdown ? (
+            <div className="dropdown-container">
+              <div className="dropdown-links">New group</div>
+              <div className="dropdown-links">Settings</div>
+              <Link to="/login" className="dropdown-links">Log-out</Link>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div className="search-cont">
