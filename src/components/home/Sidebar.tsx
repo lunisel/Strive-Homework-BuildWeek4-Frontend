@@ -2,9 +2,13 @@ import { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom"; 
+import { UserInt } from "../../usefull/interfaces";
 import "./styles.css";
 
-const Sidebar = () => {
+type propsInt = {
+  user: UserInt
+}
+const Sidebar= (props: propsInt) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   return (
     <>
@@ -18,7 +22,7 @@ const Sidebar = () => {
             />
           </div>
 
-          <h5 className="m-0 my-profile-h5">My profile</h5>
+          <h5 className="m-0 my-profile-h5">user.name</h5>
         </div>
 
         <div className={dropdown ? "right-side active":"right-side" }>

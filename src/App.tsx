@@ -1,12 +1,21 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter, Route, RouteComponentProps } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  RouteComponentProps,
+  Redirect,
+} from "react-router-dom";
 import Loggin from "./components/loggin/Loggin";
 import SignUp from "./components/signup/SignUp";
 import Home from "./components/home/Home";
+import { useSelector } from "react-redux";
+import { UserInt, reduxStateInt } from "./usefull/interfaces";
 
 function App() {
+  const user = useSelector((state: reduxStateInt) => state.user.currentUser);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,13 +33,9 @@ function App() {
             <SignUp {...routerProps} />
           )}
         />
-        <Route
-          exact
-          path="/"
-          render={(routerProps: RouteComponentProps) => (
-            <Home {...routerProps} />
-          )}
-        />
+        <Route exact path="/">
+          {user ? <Home /> : <Redirect to="/login" />}
+        </Route>
       </BrowserRouter>
     </div>
   );

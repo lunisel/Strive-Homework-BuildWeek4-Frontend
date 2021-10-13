@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { logInInt, mixLogInInt, UserInt } from "../../usefull/interfaces";
-import { useDispatch } from "react-redux";
+import { logInInt, mixLogInInt, UserInt, reduxStateInt } from "../../usefull/interfaces";
+import { useDispatch, useSelector } from "react-redux";
 import { addCurrentUser } from "../../redux/actions/user";
 import "./styles.css";
 
@@ -12,6 +12,7 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
     password: "",
   });
   
+  const user = useSelector((state: reduxStateInt) => state.user.currentUser);
   const dispatch = useDispatch();
 
   const handleOnChange = (
@@ -50,7 +51,7 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
     try {
       let response = await fetch("http://localhost:3001/users?email="+ email)
       let data = await response.json()
-      let user: UserInt = data.users
+      let user: UserInt = data.users[0]
       return user
     } catch (err) {
       console.log(err);
@@ -65,7 +66,7 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
         <Form
           onSubmit={(e: React.FormEvent) => {
             handleSubmit({ e, logIn });
-            history.push("/");
+            setTimeout(function(){history.push("/")}, 1000);
           }}
         >
           <Form.Control

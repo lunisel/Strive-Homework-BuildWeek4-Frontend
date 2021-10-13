@@ -4,9 +4,11 @@ export interface UserInt {
   avatar?: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   status?: string;
   refreshToken?: string;
+  createdAt?: string,
+  updatedAt?: string
 }
 
 export interface mixInt {
