@@ -8,7 +8,7 @@
 }
 
 .content-home-cont {
-  width: 90%;
+  width: 80%;
   height: 90%;
   background-color: #f8f9fa;
 }
@@ -19,17 +19,30 @@
   height: 4rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+.three-dots {
+  font-size: 1.3rem;
+  color: #51585c;
+  cursor: pointer;
 }
 
 .profile-img-cont {
-  width: 3rem;
-  height: 3rem;
-  margin-left: 2rem;
+  width: 2.8rem;
+  height: 2.8rem;
   margin-right: 2rem;
 }
 
 h5.my-profile-h5 {
   color: #51585c;
+  cursor: pointer;
 }
 
 .search-cont {
@@ -39,6 +52,7 @@ h5.my-profile-h5 {
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  border-bottom: solid 1px #ebebeb;
 }
 
 .search-input {
@@ -54,10 +68,70 @@ h5.my-profile-h5 {
 .single-chat-cont.row {
   margin: 0;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
+  padding: 0.5rem 1rem;
 }
 
-.chat-img-cont.col {
+.single-chat-cont.row:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+
+.chat-img-cont.col-2 {
   height: 3rem;
   width: 3rem;
+}
+
+.contact-name.col-2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.time-last-message.col-2 {
+  font-size: 0.8rem;
+  color: #666666;
+}
+
+.row.last-message {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.chat-receiver-bar {
+  width: 100%;
+  height: 4rem;
+  background-color: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-container.p-0.col-8 {
+  border-left: solid 1px #dadada94;
+  background-color: #E5DDD5;
+}
+
+.bottom-input-text{
+  width: 100%;
+  height: 4rem;
+  background-color: #ededed;
+  position: absolute;
+  bottom: 0;
+}
+
+.img-name-container, .search-dots-container{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: fit-content;
+}
+
+span.name-receiver{
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.search-dots{
+  font-size: 1.2rem;
+  color: #51585C;
 }
