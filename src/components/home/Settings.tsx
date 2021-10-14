@@ -38,7 +38,7 @@ const Settings = () => {
           </div>
           <div className="img-settings-cont">
             <img
-              src="https://placehold.it/100x100"
+              src={user!.avatar}
               alt="profile"
               className="w-50 h-auto rounded-circle"
             />

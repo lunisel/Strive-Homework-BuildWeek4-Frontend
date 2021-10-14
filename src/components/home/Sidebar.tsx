@@ -25,7 +25,7 @@ const Sidebar = () => {
             <div className="left-side">
               <div className="profile-img-cont">
                 <img
-                  src="https://placehold.it/100x100"
+                  src={user!.avatar}
                   alt="profile picture"
                   className="img-fluid rounded-circle"
                 />
