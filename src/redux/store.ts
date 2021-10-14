@@ -37,7 +37,8 @@ export const initialState: reduxStateInt = {
         name: "",
         avatar: "" 
       }],
-      _id: ""
+      _id: "",
+      updatedAt:""
     }]
   },
 };

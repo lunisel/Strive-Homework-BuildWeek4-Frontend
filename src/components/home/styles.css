@@ -131,7 +131,7 @@ h5.my-profile-h5 {
   width: 3rem;
 }
 
-.contact-name.col-2 {
+.contact-name.col-7 {
   font-size: 1.1rem;
   font-weight: 600;
 }
@@ -144,6 +144,10 @@ h5.my-profile-h5 {
 .row.last-message {
   font-size: 0.9rem;
   color: #666666;
+  padding-right: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .chat-receiver-bar {
@@ -355,6 +359,7 @@ a.dropdown-links {
 /* --------------------------- SETTINGS ------------------------------ */
 .side-bar {
   background-color: #ededed;
+  height: 100%;
 }
 
 .top-bar-settings {

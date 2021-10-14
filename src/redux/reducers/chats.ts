@@ -8,6 +8,11 @@ const chatsReducer = (state = initialState.chats, action : PayloadAction ) => {
             ...state,
             rooms: action.payload
           }
+          case "ADD_SELECTED_CHAT" : 
+          return{
+              ...state,
+              selectedChat: action.payload
+          }
         default:
           return state
       }

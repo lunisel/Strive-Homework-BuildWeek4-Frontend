@@ -4,3 +4,8 @@ export const addChatHistory = (room : roomsInt) => ({
     type: 'ADD_CHAT_HISTORY',
     payload: room,
   })
+
+  export const addSelectedChat = (chat:roomsInt)=>({
+      type: "ADD_SELECTED_CHAT",
+      payload: chat
+  })

@@ -40,7 +40,7 @@ export interface messagesInt {
   };
 }
 
-interface membersInt{
+export interface membersInt{
   _id: string,
   name: string,
   avatar: string
@@ -50,6 +50,7 @@ export interface roomsInt {
   history: Array<messagesInt>,
   members: Array<membersInt>
   _id: string
+  updatedAt: string
 }
 
 export interface reduxStateInt {

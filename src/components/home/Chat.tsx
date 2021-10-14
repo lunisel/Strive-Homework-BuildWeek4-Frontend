@@ -7,20 +7,41 @@ import {
 import { FiPaperclip } from "react-icons/fi";
 import { Form } from "react-bootstrap";
 import SingleChat from "./SingleChat";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { membersInt, reduxStateInt, roomsInt, UserInt } from "../../usefull/interfaces";
 
 const Chat = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const [otherUser, setOtherUser] = useState<membersInt | undefined>(undefined)
+
+  const selectedChat: roomsInt | null = useSelector(
+    (state: reduxStateInt) => state.chats.selectedChat
+  );
+
+  const user: UserInt | null = useSelector(
+    (state: reduxStateInt) => state.user.currentUser
+  );
+
+  const selectedChatUser = () => {
+    let otherUserChat: membersInt | undefined = selectedChat?.members.find(u => u._id !== user?._id)
+    setOtherUser(otherUserChat)
+  }
+
+  useEffect(()=>{
+    selectedChatUser()
+  },[selectedChat])
+
   return (
     <div className="chat-big-cont">
       <div className="chat-receiver-bar">
         <div className="img-name-container ml-4">
           <img
-            src="https://placehold.it/100x100"
+            src={otherUser!.avatar}
             alt="profile picture"
             className="h-75 w-auto rounded-circle mr-3"
           />
-          <span className="name-receiver">Name</span>
+          <span className="name-receiver">{otherUser!.name}</span>
         </div>
         <div className="search-dots-container mr-3 position-relative">
           <GoSearch className="search-dots mr-2" />

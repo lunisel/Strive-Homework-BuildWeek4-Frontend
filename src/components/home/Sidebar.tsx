@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import { useEffect, useState, KeyboardEvent } from "react";
+import { Row, Col, Form, FormControl } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { reduxStateInt, UserInt, roomsInt } from "../../usefull/interfaces";
-import { addChatHistory } from "../../redux/actions/chats";
+import { reduxStateInt, UserInt, roomsInt, membersInt } from "../../usefull/interfaces";
+import { addChatHistory, addSelectedChat } from "../../redux/actions/chats";
 import Settings from "./Settings";
 import "./styles.css";
 
 const Sidebar = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [settings, setSettings] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const [searchedUsers, setSearchUsers] = useState<UserInt[] | null>(null);
 
   const user: UserInt | null = useSelector(
     (state: reduxStateInt) => state.user.currentUser
@@ -20,7 +22,12 @@ const Sidebar = () => {
     (state: reduxStateInt) => state.chats.rooms
   );
 
+  const selectedChat: roomsInt | null = useSelector(
+    (state: reduxStateInt) => state.chats.selectedChat
+  );
+
   const dispatch = useDispatch();
+
 
   const fetchChatHistory = async () => {
     try {
@@ -33,7 +40,6 @@ const Sidebar = () => {
       if (response.ok) {
         console.log("RESPONSE OK SIDEBAR");
         let data = await response.json();
-
         console.log("CHAT HISTORY SIDEBAR", data);
         dispatch(addChatHistory(data));
       } else {
@@ -44,13 +50,37 @@ const Sidebar = () => {
     }
   };
 
+  const fetchUsersToChatWith = async (query: string) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users?name=${query}`
+      );
+      let data = await response.json();
+      let users = data.users;
+      setSearchUsers(users);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const startChatOnSearch = (u: UserInt) => {
+    console.log("Selected", u);
+  };
+
   useEffect(() => {
     fetchChatHistory();
-    console.log("USE EFFECT SIDEBAR");
   }, []);
 
+
   return (
-    <>
+    <div
+      className="side-bar"
+      onMouseDown={() =>
+        setTimeout(function () {
+          setSearchUsers(null);
+        }, 1000)
+      }
+    >
       {settings ? (
         <Settings />
       ) : (
@@ -95,21 +125,34 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="search-cont">
-            <Form.Control
+            <FormControl
               type="text"
               placeholder="Search or start a new chat"
               className="search-input sidebar"
+              value={query}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setQuery(e.currentTarget.value)
+              }
+              onKeyPress={(e: KeyboardEvent) => {
+                if (e.key === "Enter") {
+                  fetchUsersToChatWith(query);
+                }
+              }}
             />
           </div>
           <div className="open-chats">
             <div className="single-chat-and-hr-cont">
-              {chats &&
-                chats?.map((c) => (
+              {searchedUsers &&
+                query !== "" &&
+                searchedUsers.map((u) => (
                   <>
-                    <Row className="single-chat-cont">
+                    <Row
+                      className="single-chat-cont"
+                      onClick={() => startChatOnSearch(u)}
+                    >
                       <Col xs={2} className="chat-img-cont p-0">
                         <img
-                          src={}
+                          src={u.avatar}
                           alt="profile picture"
                           className="h-100 w-auto rounded-circle"
                         />
@@ -117,29 +160,63 @@ const Sidebar = () => {
                       <Col xs={10} className="chat-text-cont p-0 h-100">
                         <Row className="d-flex justify-content-between w-100 m-0 position-relative">
                           <Col xs={2} className="p-0 contact-name">
-                            Name
+                            {u.name}
                           </Col>
-                          <Col
-                            xs={3}
-                            className="p-0 time-last-message text-right pr-3"
-                          >
-                            00:00
-                          </Col>
-                        </Row>
-                        <Row className="w-100 m-0 last-message">
-                          Last message
                         </Row>
                         <hr className="separator-chats m-0" />
                       </Col>
                     </Row>
                   </>
                 ))}
-
+              {(!searchedUsers || query === "") &&
+                chats?.map((c) => (
+                  <>
+                    <Row
+                      className={
+                        selectedChat?.members === c.members
+                          ? "single-chat-cont active"
+                          : "single-chat-cont"
+                      }
+                      onClick={(e: React.MouseEvent<HTMLElement>) => {
+                        dispatch(addSelectedChat(c))
+                      }}
+                    >
+                      <Col xs={2} className="chat-img-cont p-0">
+                        <img
+                          src={c.members.find(u => u._id !== user?._id)?.avatar}
+                          alt="profile picture"
+                          className="h-100 w-auto rounded-circle"
+                        />
+                      </Col>
+                      <Col xs={10} className="chat-text-cont p-0 h-100">
+                        <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                          <Col xs={7} className="p-0 contact-name">
+                            {c.members.find(u => u._id !== user?._id)?.name}
+                          </Col>
+                          <Col
+                            xs={3}
+                            className="p-0 time-last-message text-right pr-3"
+                          >
+                            {() => {
+                              let date = new Date(c.updatedAt);
+                              let time = date.getHours();
+                              console.log("TIMEEEEE",time)
+                            }}
+                          </Col>
+                        </Row>
+                        <Row className="w-100 m-0 last-message">
+                          {c.history.slice(-1)[0].content.text}
+                        </Row>
+                        <hr className="separator-chats m-0" />
+                      </Col>
+                    </Row>
+                  </>
+                ))}
             </div>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };
 
