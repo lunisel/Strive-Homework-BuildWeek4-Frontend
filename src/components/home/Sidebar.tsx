@@ -3,8 +3,14 @@ import { Row, Col, Form, FormControl } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { reduxStateInt, UserInt, roomsInt, membersInt } from "../../usefull/interfaces";
-import { addChatHistory, addSelectedChat } from "../../redux/actions/chats";
+import {
+  reduxStateInt,
+  UserInt,
+  roomsInt,
+  membersInt,
+} from "../../usefull/interfaces";
+import { addChatHistory, addSelectedChat, disconectChats } from "../../redux/actions/chats";
+import { disconnectUser } from "../../redux/actions/user";
 import Settings from "./Settings";
 import "./styles.css";
 
@@ -27,7 +33,6 @@ const Sidebar = () => {
   );
 
   const dispatch = useDispatch();
-
 
   const fetchChatHistory = async () => {
     try {
@@ -70,7 +75,6 @@ const Sidebar = () => {
   useEffect(() => {
     fetchChatHistory();
   }, []);
-
 
   return (
     <div
@@ -115,7 +119,15 @@ const Sidebar = () => {
                   >
                     Settings
                   </div>
-                  <Link to="/login" className="dropdown-links">
+                  <Link
+                    to="/login"
+                    className="dropdown-links"
+                    onClick={() => {
+                      console.log("DISCONECTING");
+                      dispatch(disconnectUser());
+                      dispatch(disconectChats())
+                    }}
+                  >
                     Log-out
                   </Link>
                 </div>
@@ -178,12 +190,14 @@ const Sidebar = () => {
                           : "single-chat-cont"
                       }
                       onClick={(e: React.MouseEvent<HTMLElement>) => {
-                        dispatch(addSelectedChat(c))
+                        dispatch(addSelectedChat(c));
                       }}
                     >
                       <Col xs={2} className="chat-img-cont p-0">
                         <img
-                          src={c.members.find(u => u._id !== user?._id)?.avatar}
+                          src={
+                            c.members.find((u) => u._id !== user?._id)?.avatar
+                          }
                           alt="profile picture"
                           className="h-100 w-auto rounded-circle"
                         />
@@ -191,7 +205,7 @@ const Sidebar = () => {
                       <Col xs={10} className="chat-text-cont p-0 h-100">
                         <Row className="d-flex justify-content-between w-100 m-0 position-relative">
                           <Col xs={7} className="p-0 contact-name">
-                            {c.members.find(u => u._id !== user?._id)?.name}
+                            {c.members.find((u) => u._id !== user?._id)?.name}
                           </Col>
                           <Col
                             xs={3}
@@ -200,7 +214,7 @@ const Sidebar = () => {
                             {() => {
                               let date = new Date(c.updatedAt);
                               let time = date.getHours();
-                              console.log("TIMEEEEE",time)
+                              console.log("TIMEEEEE", time);
                             }}
                           </Col>
                         </Row>

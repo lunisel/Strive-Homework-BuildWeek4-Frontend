@@ -356,6 +356,11 @@ a.dropdown-links {
   cursor: pointer;
 }
 
+.chat-cont-without-selected-chat{
+  width: 100%;
+  height: 100%;
+  background-color: #F8F9FA;
+}
 /* --------------------------- SETTINGS ------------------------------ */
 .side-bar {
   background-color: #ededed;

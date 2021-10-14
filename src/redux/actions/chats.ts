@@ -9,3 +9,7 @@ export const addChatHistory = (room : roomsInt) => ({
       type: "ADD_SELECTED_CHAT",
       payload: chat
   })
+
+  export const disconectChats = () => ({
+      type: "DISCONNECT_CHATS"
+  })
