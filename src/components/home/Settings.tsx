@@ -57,6 +57,27 @@ const Settings = () => {
               </div>
             </div>
           </div>
+          <div className="other-fields-cont">
+            <div className="inputs-container">
+              <span className="inputs-label">Your full name</span>
+              <input type="text" value={user!.name} placeholder={user!.name} className="input-field" />
+            </div>
+
+            <div className="inputs-container">
+              <span className="inputs-label">Your email</span>
+              <input type="text" value={user!.email} placeholder={user!.email} className="input-field" />
+            </div>
+
+            <div className="inputs-container">
+              <span className="inputs-label">Your password</span>
+              <input type="password" value={user!.password} placeholder={user!.password} className="input-field" />
+            </div>
+
+            <div className="inputs-container">
+              <span className="inputs-label">Your status</span>
+              <input type="text" value={user!.status} placeholder={user!.status} className="input-field" />
+            </div>
+          </div>
         </>
       ) : (
         <Sidebar />

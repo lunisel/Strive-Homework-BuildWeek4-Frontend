@@ -1,10 +1,11 @@
-import { createStore, combineReducers, applyMiddleware, compose, Store } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose, Store, AnyAction } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import { reduxStateInt } from "../usefull/interfaces";
 import userReducer from "./reducers/user"
+import { Reducer } from "react";
 
 declare global {
   interface Window {
@@ -38,7 +39,7 @@ const persistConfig = {
 
 const bigReducer = combineReducers({
   user: userReducer
-})
+}) as Reducer<any, AnyAction>
 
 const persistedReducer = persistReducer(persistConfig, bigReducer)
 
@@ -47,3 +48,5 @@ export const configureStore = createStore(
   initialState,
   process.env.REACT_APP_DEVELOPMENT ? composeEnhancers(applyMiddleware(thunk)) : compose(applyMiddleware(thunk))
 )
+
+export const persistor = persistStore(configureStore)
