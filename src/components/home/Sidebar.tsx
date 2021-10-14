@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reduxStateInt, UserInt } from "../../usefull/interfaces";
+import { addChatHistory } from "../../redux/actions/chats";
 import Settings from "./Settings";
 import "./styles.css";
 
@@ -14,6 +15,35 @@ const Sidebar = () => {
   const user: UserInt | null = useSelector(
     (state: reduxStateInt) => state.user.currentUser
   );
+
+  const dispatch = useDispatch();
+
+  const fetchChatHistory = async () => {
+    try {
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/chats`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        console.log("RESPONSE OK SIDEBAR");
+        let data = await response.json();
+
+        console.log("CHAT HISTORY SIDEBAR", data);
+        dispatch(addChatHistory(data));
+      } else {
+        console.log("Something went wrong");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchChatHistory();
+    console.log("USE EFFECT SIDEBAR");
+  }, []);
 
   return (
     <>
@@ -45,7 +75,12 @@ const Sidebar = () => {
               {dropdown ? (
                 <div className="dropdown-container">
                   <div className="dropdown-links">New group</div>
-                  <div className="dropdown-links" onClick={()=> setSettings(true)}>Settings</div>
+                  <div
+                    className="dropdown-links"
+                    onClick={() => setSettings(true)}
+                  >
+                    Settings
+                  </div>
                   <Link to="/login" className="dropdown-links">
                     Log-out
                   </Link>
@@ -64,6 +99,7 @@ const Sidebar = () => {
           </div>
           <div className="open-chats">
             <div className="single-chat-and-hr-cont">
+              {}
               <Row className="single-chat-cont">
                 <Col xs={2} className="chat-img-cont p-0">
                   <img

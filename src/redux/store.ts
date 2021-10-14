@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import { reduxStateInt } from "../usefull/interfaces";
 import userReducer from "./reducers/user"
+import chatsReducer from "./reducers/chats"
 import { Reducer } from "react";
 
 declare global {
@@ -23,7 +24,8 @@ export const initialState: reduxStateInt = {
     currentUser: null
   },
   chat: {
-    selectedChat: null
+    selectedChat: null,
+    rooms: null
   },
 };
 
@@ -38,7 +40,8 @@ const persistConfig = {
 };
 
 const bigReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  chats: chatsReducer
 }) as Reducer<any, AnyAction>
 
 const persistedReducer = persistReducer(persistConfig, bigReducer)

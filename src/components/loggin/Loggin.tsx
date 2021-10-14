@@ -42,7 +42,7 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
         let data = await response.json();
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("token2", data.refreshToken);
-        let user = await findUserFromEmail(logIn.email);
+        let user = await findUserFromToken(data.accessToken);
         if (user) {
           dispatch(addCurrentUser(user));
         }
@@ -52,11 +52,16 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
     }
   };
 
-  const findUserFromEmail = async (email: string) => {
+  const findUserFromToken = async (token: string) => {
     try {
-      let response = await fetch("http://localhost:3001/users?email=" + email);
-      let data = await response.json();
-      let user: UserInt = data.users[0];
+      let response = await fetch("http://localhost:3001/users/me", {
+        method: "GET",
+        headers: {
+          Authorization : `Bearer ${token}`
+        }
+      });
+      let data = await response.json()
+      let user: UserInt = data;
       return user;
     } catch (err) {
       console.log(err);

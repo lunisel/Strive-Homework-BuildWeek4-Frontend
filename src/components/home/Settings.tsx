@@ -69,11 +69,6 @@ const Settings = () => {
             </div>
 
             <div className="inputs-container">
-              <span className="inputs-label">Your password</span>
-              <input type="password" value={user!.password} placeholder={user!.password} className="input-field" />
-            </div>
-
-            <div className="inputs-container">
               <span className="inputs-label">Your status</span>
               <input type="text" value={user!.status} placeholder={user!.status} className="input-field" />
             </div>

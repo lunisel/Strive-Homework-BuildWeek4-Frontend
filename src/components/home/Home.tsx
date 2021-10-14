@@ -28,7 +28,7 @@ const Home = () => {
   const loadHome = async () => {
     //await logSarahIn()
     await getMyProfile();
-    await getMyChatHistory();
+    /* await getMyChatHistory(); */
     console.log("HOME LOADED!");
   };
 
@@ -62,7 +62,7 @@ const Home = () => {
     console.log("HERE I AM=>", profile);
   };
 
-  const getMyChatHistory = async () => {
+  /* const getMyChatHistory = async () => {
     const token = localStorage.getItem("token");
     const response = await fetch(`http://localhost:3001/chats`, {
       headers: {
@@ -74,7 +74,7 @@ const Home = () => {
     if (history.length > 0) { 
       history.map((chat:any) => socket.emit("joinRooms", { id: chat._id }));
     }
-  };
+  }; */
 
   return (
     <div className='home-cont'>

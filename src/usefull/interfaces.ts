@@ -1,4 +1,3 @@
-
 export interface UserInt {
   _id?: string;
   avatar?: string;
@@ -7,8 +6,8 @@ export interface UserInt {
   password?: string;
   status?: string;
   refreshToken?: string;
-  createdAt?: string,
-  updatedAt?: string
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface mixInt {
@@ -33,11 +32,31 @@ export interface mixLogInInt {
   e: React.FormEvent;
 }
 
+export interface messagesInt {
+  sender: string;
+  content: {
+    text: string;
+    media?: string;
+  };
+}
+
+interface membersInt{
+  name: string,
+  avatar: string
+}
+
+export interface roomsInt {
+  history: Array<messagesInt>,
+  members: Array<membersInt>
+  _id: string
+}
+
 export interface reduxStateInt {
   user: {
-    currentUser: null | UserInt
-  },
+    currentUser: null | UserInt;
+  };
   chat: {
-    selectedChat: null
-  }
+    selectedChat: null | roomsInt;
+    rooms: Array<roomsInt> | null
+  };
 }
