@@ -3,7 +3,7 @@ import { Row, Col, Form } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { reduxStateInt, UserInt } from "../../usefull/interfaces";
+import { reduxStateInt, UserInt, roomsInt } from "../../usefull/interfaces";
 import { addChatHistory } from "../../redux/actions/chats";
 import Settings from "./Settings";
 import "./styles.css";
@@ -16,6 +16,10 @@ const Sidebar = () => {
     (state: reduxStateInt) => state.user.currentUser
   );
 
+  const chats: roomsInt[] = useSelector((state:reduxStateInt) => state.chat.rooms)
+
+  console.log(chats)
+  
   const dispatch = useDispatch();
 
   const fetchChatHistory = async () => {
@@ -99,8 +103,7 @@ const Sidebar = () => {
           </div>
           <div className="open-chats">
             <div className="single-chat-and-hr-cont">
-              {}
-              <Row className="single-chat-cont">
+              {chats && chats?.map((c) => <><Row className="single-chat-cont">
                 <Col xs={2} className="chat-img-cont p-0">
                   <img
                     src="https://placehold.it/100x100"
@@ -124,7 +127,8 @@ const Sidebar = () => {
                   <hr className="separator-chats m-0" />
                 </Col>
               </Row>
-
+</>)}
+              
               <Row className="single-chat-cont active">
                 <Col xs={2} className="chat-img-cont p-0">
                   <img

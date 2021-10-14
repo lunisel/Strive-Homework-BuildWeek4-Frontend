@@ -25,7 +25,20 @@ export const initialState: reduxStateInt = {
   },
   chat: {
     selectedChat: null,
-    rooms: null
+    rooms: [{
+      history: [{
+        sender: "",
+        content: {
+        text: ""
+        }
+      }],
+      members: [{
+        _id:"",
+        name: "",
+        avatar: "" 
+      }],
+      _id: ""
+    }]
   },
 };
 

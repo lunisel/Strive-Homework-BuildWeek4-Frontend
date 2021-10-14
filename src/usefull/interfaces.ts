@@ -41,6 +41,7 @@ export interface messagesInt {
 }
 
 interface membersInt{
+  _id: string,
   name: string,
   avatar: string
 }
@@ -57,6 +58,6 @@ export interface reduxStateInt {
   };
   chat: {
     selectedChat: null | roomsInt;
-    rooms: Array<roomsInt> | null
+    rooms: Array<roomsInt>
   };
 }
