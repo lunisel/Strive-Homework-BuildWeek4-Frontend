@@ -56,7 +56,7 @@ export interface reduxStateInt {
   user: {
     currentUser: null | UserInt;
   };
-  chat: {
+  chats: {
     selectedChat: null | roomsInt;
     rooms: Array<roomsInt>
   };

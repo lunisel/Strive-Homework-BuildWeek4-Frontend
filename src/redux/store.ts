@@ -23,7 +23,7 @@ export const initialState: reduxStateInt = {
   user: {
     currentUser: null
   },
-  chat: {
+  chats: {
     selectedChat: null,
     rooms: [{
       history: [{

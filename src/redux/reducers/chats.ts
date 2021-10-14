@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import {initialState} from "../store"
 
-const chatsReducer = (state = initialState.chat, action : PayloadAction ) => {
+const chatsReducer = (state = initialState.chats, action : PayloadAction ) => {
     switch (action.type) {
         case 'ADD_CHAT_HISTORY':
           return {
