@@ -1,14 +1,13 @@
 import { useEffect, useState, KeyboardEvent } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { Row, Col, Form, FormControl } from "react-bootstrap";
+import { Row, Col, FormControl } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   reduxStateInt,
   UserInt,
-  roomsInt,
-  membersInt,
+  roomsInt
 } from "../../usefull/interfaces";
 import { addChatHistory, addSelectedChat, disconectChats } from "../../redux/actions/chats";
 import { disconnectUser } from "../../redux/actions/user";
@@ -75,6 +74,7 @@ const Sidebar = ({history}: RouteComponentProps) => {
 
   useEffect(() => {
     fetchChatHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -95,7 +95,7 @@ const Sidebar = ({history}: RouteComponentProps) => {
               <div className="profile-img-cont">
                 <img
                   src={user!.avatar}
-                  alt="profile picture"
+                  alt="profile"
                   className="img-fluid rounded-circle"
                 />
               </div>
@@ -108,7 +108,6 @@ const Sidebar = ({history}: RouteComponentProps) => {
                 className="three-dots"
                 onClick={() => {
                   setDropdown(!dropdown);
-                  console.log(dropdown);
                 }}
               />
               {dropdown ? (
@@ -166,7 +165,7 @@ const Sidebar = ({history}: RouteComponentProps) => {
                       <Col xs={2} className="chat-img-cont p-0">
                         <img
                           src={u.avatar}
-                          alt="profile picture"
+                          alt="profile"
                           className="h-100 w-auto rounded-circle"
                         />
                       </Col>
@@ -199,7 +198,7 @@ const Sidebar = ({history}: RouteComponentProps) => {
                           src={
                             c.members.find((u) => u._id !== user?._id)?.avatar
                           }
-                          alt="profile picture"
+                          alt="profile"
                           className="h-100 w-auto rounded-circle"
                         />
                       </Col>

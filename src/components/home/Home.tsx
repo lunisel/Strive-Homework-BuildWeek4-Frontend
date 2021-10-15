@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
@@ -14,6 +14,7 @@ const Home = ({history}: RouteComponentProps) => {
     console.log("HELLO THIS IS THE USEEFFECT AT HOME");
     loadHome();
     loadSocket();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadSocket = () => {
@@ -27,30 +28,10 @@ const Home = ({history}: RouteComponentProps) => {
   };
 
   const loadHome = async () => {
-    //await logSarahIn()
     await getMyProfile();
-    /* await getMyChatHistory(); */
     console.log("HOME LOADED!");
   };
 
-  // we don't need to login at Home but just for testing I did it
-  const logSarahIn = async () => {
-    const body = {
-      email: "sgfisher@gmail.com",
-      password: "Password1",
-    };
-    const response = await fetch(`http://localhost:3001/users/session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    localStorage.setItem("token", data.accessToken);
-    localStorage.setItem("token2", data.refreshToken);
-    console.log("NOW I AM LOGGED IN AS SARAH");
-  };
 
   const getMyProfile = async () => {
     const token = localStorage.getItem("token");
@@ -66,20 +47,6 @@ const Home = ({history}: RouteComponentProps) => {
       history.push("/login")
     }
   };
-
-  /* const getMyChatHistory = async () => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3001/chats`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const history = await response.json();
-    console.log("CHAT HISTORY=>", history);
-    if (history.length > 0) { 
-      history.map((chat:any) => socket.emit("joinRooms", { id: chat._id }));
-    }
-  }; */
 
   return (
     <div className='home-cont'>

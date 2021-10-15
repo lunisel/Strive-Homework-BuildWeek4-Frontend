@@ -11,7 +11,7 @@ import Loggin from "./components/loggin/Loggin";
 import SignUp from "./components/signup/SignUp";
 import Home from "./components/home/Home";
 import { useSelector } from "react-redux";
-import { UserInt, reduxStateInt } from "./usefull/interfaces";
+import { reduxStateInt } from "./usefull/interfaces";
 
 function App() {
   const user = useSelector((state: reduxStateInt) => state.user.currentUser);

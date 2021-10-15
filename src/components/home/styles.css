@@ -183,7 +183,7 @@ h5.my-profile-h5 {
   padding-left: 3.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .bottom-input-text {

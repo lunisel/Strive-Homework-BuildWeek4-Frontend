@@ -1,8 +1,6 @@
 import { useState, useRef } from "react";
-import { Row, Col, Form } from "react-bootstrap";
 import { HiArrowLeft } from "react-icons/hi";
 import { FaCamera } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { reduxStateInt, UserInt } from "../../usefull/interfaces";
 import "./styles.css";

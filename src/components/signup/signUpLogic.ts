@@ -1,4 +1,3 @@
-import React from "react";
 import { signUpResponse, mixInt, UserInt } from "../../usefull/interfaces";
 
 export const submitSignUp = async ({ e, user }: mixInt) => {

@@ -37,6 +37,7 @@ const Chat = () => {
 
   useEffect(() => {
     selectedChatUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChat]);
 
   return (
@@ -47,7 +48,7 @@ const Chat = () => {
             <div className="img-name-container ml-4">
               <img
                 src={otherUser?.avatar}
-                alt="profile picture"
+                alt="profile"
                 className="h-75 w-auto rounded-circle mr-3"
               />
               <span className="name-receiver">{otherUser?.name}</span>
@@ -59,7 +60,6 @@ const Chat = () => {
                   className="search-dots"
                   onClick={() => {
                     setDropdown(!dropdown);
-                    console.log(dropdown);
                   }}
                 />
                 {dropdown ? (
