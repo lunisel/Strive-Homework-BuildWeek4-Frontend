@@ -70,7 +70,7 @@ const Sidebar = ({ history }: RouteComponentProps) => {
 
   const openChatOnSearch = async (u: UserInt) => {
     console.log("Selected", u);
-    const userId: string = u._id!;
+    const userId: string = u._id!.toString();
     try {
       let response = await fetch(
         `${process.env.REACT_APP_BE_URL}/chats/${userId}/check`,
@@ -83,31 +83,44 @@ const Sidebar = ({ history }: RouteComponentProps) => {
       );
       //console.log(response.ok)
       if (response.ok) {
+        console.log("openChatOnSearch found a pre-existing chat")
         let chat = await response.json();
         dispatch(addSelectedChat(chat));
       } else {
-        createNewEmptyChat(userId);
+        console.log("openChatOnSearch did not find a pre-existing chat and will now run createNewEmptyChat")
+        createNewChat(userId);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const createNewEmptyChat = async (userId: string) => {
+  const createNewChat = async (userId: string) => {
+    console.log("OPENING createNewChat function")
+    const objectToSend = {
+      members: [userId.toString()],
+      message: {
+        content: {
+          text: "Great news, now you can message each other!",
+        },
+      },
+    };
+    console.log("The object I am trying to send is", objectToSend)
     try {
-      let response = await fetch(
-        `${process.env.REACT_APP_BE_URL}/chats/${userId}/openchat`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      let response = await fetch(`${process.env.REACT_APP_BE_URL}/chats`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(objectToSend),
+      });
+      console.log("The response is OK?", response.ok)
       if (response.ok) {
         const newChat = await response.json();
         dispatch(addSelectedChat(newChat));
       } else {
+        console.log(response.status)
         console.log("SOMETHING WENT WRONG");
       }
     } catch (err) {

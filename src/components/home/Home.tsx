@@ -7,8 +7,8 @@ import "./styles.css";
 import { io } from "socket.io-client";
 
 const Home = (props: RouteComponentProps) => {
-  const ADDRESS = "http://localhost:3001";
-  const socket = io(ADDRESS, { transports: ["websocket"] });
+  const ADDRESS = process.env.REACT_APP_BE_URL!;
+  const socket = io(ADDRESS, { transports: ["websocket"] }); 
 
   useEffect(() => {
     console.log("HELLO THIS IS THE USEEFFECT AT HOME");
@@ -29,6 +29,7 @@ const Home = (props: RouteComponentProps) => {
       console.log("message received! let's post it in the window...")
       console.log(newMessageJustReceived)
     })
+    //socket.emit("sendmessage", { message: message, room: selectedChat!._id })
   };
 
   const loadHome = async () => {

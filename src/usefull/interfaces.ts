@@ -38,20 +38,26 @@ export interface messagesInt {
     text: string;
     media?: string;
   };
-  _id: string
+  _id: string;
 }
 
-export interface membersInt{
-  _id: string,
-  name: string,
-  avatar: string
+export interface membersInt {
+  _id: string;
+  name: string;
+  avatar: string;
 }
 
 export interface roomsInt {
-  history: Array<messagesInt>,
-  members: Array<membersInt>
-  _id: string
-  updatedAt: string
+  history: Array<messagesInt>;
+  members: Array<membersInt>;
+  _id: string;
+  updatedAt: string;
+}
+
+export interface newMessageInt {
+  status: boolean;
+  content: string;
+  _id: string;
 }
 
 export interface reduxStateInt {
@@ -59,7 +65,8 @@ export interface reduxStateInt {
     currentUser: null | UserInt;
   };
   chats: {
+    newMessage: newMessageInt | null;
     selectedChat: null | roomsInt;
-    rooms: Array<roomsInt> | null
+    rooms: Array<roomsInt> | null;
   };
 }

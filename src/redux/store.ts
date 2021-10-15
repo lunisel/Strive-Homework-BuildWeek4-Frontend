@@ -30,6 +30,11 @@ export const initialState: reduxStateInt = {
     currentUser: null,
   },
   chats: {
+    newMessage: {
+      status : false,
+      content: "",
+      _id: "",
+    },
     selectedChat: null,
     rooms: [
       {

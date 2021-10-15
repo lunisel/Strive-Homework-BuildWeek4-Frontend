@@ -2,7 +2,10 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { roomsInt } from "../../usefull/interfaces";
 import { initialState } from "../store";
 
-const chatsReducer = (state = initialState.chats, action: PayloadAction<roomsInt | null | roomsInt[]>) => {
+const chatsReducer = (
+  state = initialState.chats,
+  action: PayloadAction<roomsInt | null | roomsInt[]>
+) => {
   switch (action.type) {
     case "ADD_CHAT_HISTORY":
       return {
@@ -13,13 +16,18 @@ const chatsReducer = (state = initialState.chats, action: PayloadAction<roomsInt
       return {
         ...state,
         selectedChat: action.payload,
-      }
+      };
     case "DISCONNECT_CHATS":
       return {
         ...state,
         selectedChat: null,
-        rooms: null
-      }
+        rooms: null,
+      };
+    case "CHANGE_NEW_MESSAGE":
+      return {
+        ...state,
+        newMessage: action.payload,
+      };
     default:
       return state;
   }
