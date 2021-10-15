@@ -360,6 +360,7 @@ a.dropdown-links {
   width: 100%;
   height: 100%;
   background-color: #F8F9FA;
+  z-index: 1;
 }
 /* --------------------------- SETTINGS ------------------------------ */
 .side-bar {

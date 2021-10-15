@@ -86,10 +86,10 @@ const Chat = () => {
               className="search-input chat"
             />
             <BsFillMicFill className="mic-input" />
-          </div>{" "}
+          </div>
         </>
       ) : (
-        <div></div>
+        <div className="chat-cont-without-selected-chat"></div>
       )}
     </div>
   );

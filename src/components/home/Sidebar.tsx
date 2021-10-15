@@ -24,7 +24,7 @@ const Sidebar = () => {
     (state: reduxStateInt) => state.user.currentUser
   );
 
-  const chats: roomsInt[] = useSelector(
+  const chats: roomsInt[] | null = useSelector(
     (state: reduxStateInt) => state.chats.rooms
   );
 

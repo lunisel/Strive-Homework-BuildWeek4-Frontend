@@ -21,3 +21,7 @@ h1.signup-header {
   text-align: center;
   font-size: 2rem;
 }
+
+a.link-login{
+  color: #676e72;
+}
