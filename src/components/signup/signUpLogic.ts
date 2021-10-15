@@ -11,7 +11,8 @@ export const submitSignUp = async ({ e, user }: mixInt) => {
     });
     if (response.ok) {
       let data: signUpResponse = await response.json();
-      localStorage.setItem("token", data.refreshToken);
+      localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("token2", data.refreshToken);
     } else {
       console.log("Something went wrong...");
     }
