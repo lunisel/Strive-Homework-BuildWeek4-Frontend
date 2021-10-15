@@ -28,7 +28,7 @@ const SingleChat = () => {
               <span className="text-message pb-1">
                 {m.content.text}
                 <span className="time-of-message">00:00</span>
-                {m.sender === user?._id ? "" : <BsCheck2All className="check-blue" />}
+                {m.sender === user?._id ? <BsCheck2All className="check-blue" /> : ""}
               </span>
             </div>
             {m.sender === user?._id ? <BsFillCaretRightFill className="caret-right my-2" /> : ""}
