@@ -6,7 +6,7 @@ import Chat from "./Chat";
 import "./styles.css";
 import { io } from "socket.io-client";
 
-const Home = ({history}: RouteComponentProps) => {
+const Home = (props: RouteComponentProps) => {
   const ADDRESS = "http://localhost:3001";
   const socket = io(ADDRESS, { transports: ["websocket"] });
 
@@ -44,7 +44,7 @@ const Home = ({history}: RouteComponentProps) => {
       const profile = await response.json();
       console.log("HERE I AM=>", profile);
     } else {
-      history.push("/login")
+      props.history.push("/login")
     }
   };
 
