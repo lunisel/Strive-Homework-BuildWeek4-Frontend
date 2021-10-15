@@ -25,6 +25,10 @@ const Home = (props: RouteComponentProps) => {
     socket.on("joinedRoom", () => {
       console.log("Now I've joined the rooms!");
     });
+    socket.on('message', (newMessageJustReceived) => {
+      console.log("message received! let's post it in the window...")
+      console.log(newMessageJustReceived)
+    })
   };
 
   const loadHome = async () => {
