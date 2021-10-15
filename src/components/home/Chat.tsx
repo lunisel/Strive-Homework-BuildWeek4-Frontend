@@ -16,6 +16,32 @@ import {
   UserInt,
 } from "../../usefull/interfaces";
 
+// const sendMessageToIng = async () => {
+  //   const body = {
+  //     members: ["6167186d325b0e074302edc3"],
+  //     message: {
+  //       content: {
+  //         text: `HELLO INGRID ${new Date()}`,
+  //       },
+  //     },
+  //   }; 
+  //   const response = await fetch(`http://localhost:3001/chats`, {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+  //   const message = await response.json();
+  //   socket.emit("sendmessage", { message: body.message.content.text, room });
+  //   const { _id } = message;
+  //   console.log(
+  //     "JUST SENT A MESSAGE FROM SARAH TO INGRID WITH THE FOLLOWING ID=>",
+  //     _id
+  //   );
+  // };
+
 const Chat = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [otherUser, setOtherUser] = useState<membersInt | undefined>(undefined);
