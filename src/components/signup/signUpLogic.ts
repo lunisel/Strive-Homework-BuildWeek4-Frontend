@@ -1,5 +1,5 @@
 import React from "react";
-import { signUpResponse, mixInt } from "../../usefull/interfaces";
+import { signUpResponse, mixInt, UserInt } from "../../usefull/interfaces";
 
 export const submitSignUp = async ({ e, user }: mixInt) => {
   e.preventDefault();
@@ -20,4 +20,20 @@ export const submitSignUp = async ({ e, user }: mixInt) => {
     console.log(err);
   }
   console.log(user);
+};
+
+export const findUserFromToken = async (token: string | null) => {
+  try {
+    let response = await fetch("http://localhost:3001/users/me", {
+      method: "GET",
+      headers: {
+        Authorization : `Bearer ${token}`
+      }
+    });
+    let data = await response.json()
+    let user: UserInt = data;
+    return user;
+  } catch (err) {
+    console.log(err);
+  }
 };
