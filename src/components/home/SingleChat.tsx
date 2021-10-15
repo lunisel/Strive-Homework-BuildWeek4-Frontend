@@ -21,7 +21,7 @@ const SingleChat = () => {
         <div className="day-of-message-cont">
           <div className="day-of-message">TODAY</div>
         </div>
-        {selectedChat?.history.map((m) => (
+        {selectedChat?.history?.map((m) => (
           <div className={m.sender === user?._id ? "sended-message-cont" : "received-message-cont"} key={m._id}>
             {m.sender === user?._id ? "" : <BsFillCaretLeftFill className="caret-left my-2" />}
             <div className={m.sender === user?._id ? "sended-message my-1 p-2" : "received-message my-1 p-2"}>

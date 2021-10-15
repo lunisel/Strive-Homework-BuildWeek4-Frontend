@@ -29,7 +29,7 @@ const Chat = () => {
   );
 
   const selectedChatUser = () => {
-    let otherUserChat: membersInt | undefined = selectedChat?.members.find(
+    let otherUserChat: membersInt | undefined = selectedChat?.members?.find(
       (u) => u._id !== user?._id
     );
     setOtherUser(otherUserChat);

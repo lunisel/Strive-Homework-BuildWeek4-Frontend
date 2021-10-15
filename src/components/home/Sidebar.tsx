@@ -67,12 +67,13 @@ const Sidebar = ({ history }: RouteComponentProps) => {
       console.log(err);
     }
   };
-  
+
   const openChatOnSearch = async (u: UserInt) => {
     console.log("Selected", u);
+    const userId: string = u._id!;
     try {
       let response = await fetch(
-        `${process.env.REACT_APP_BE_URL}/chats/${u._id}/check`,
+        `${process.env.REACT_APP_BE_URL}/chats/${userId}/check`,
         {
           method: "GET",
           headers: {
@@ -80,16 +81,34 @@ const Sidebar = ({ history }: RouteComponentProps) => {
           },
         }
       );
+      //console.log(response.ok)
       if (response.ok) {
-        let { _id } = await response.json();
-        console.log(_id)
-        // If chat exists
-        // I want to open the chat, as if I just clicked on a chat
-        // onClick={(e: React.MouseEvent<HTMLElement>) => {
-        //   dispatch(addSelectedChat(c));
-        // }}
+        let chat = await response.json();
+        dispatch(addSelectedChat(chat));
       } else {
-        // POST "/chats/id/openchat" with access token
+        createNewEmptyChat(userId);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createNewEmptyChat = async (userId: string) => {
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/chats/${userId}/openchat`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const newChat = await response.json();
+        dispatch(addSelectedChat(newChat));
+      } else {
+        console.log("SOMETHING WENT WRONG");
       }
     } catch (err) {
       console.log(err);
@@ -233,9 +252,11 @@ const Sidebar = ({ history }: RouteComponentProps) => {
                           }}
                         </Col>
                       </Row>
-                      <Row className='w-100 m-0 last-message'>
-                        {c.history.slice(-1)[0].content.text}
-                      </Row>
+                      {c.history.length > 0 && (
+                        <Row className='w-100 m-0 last-message'>
+                          {c.history.slice(-1)[0].content.text}
+                        </Row>
+                      )}
                       <hr className='separator-chats m-0' />
                     </Col>
                   </Row>
