@@ -31,7 +31,7 @@ const SingleChat = () => {
                 {m.sender === user?._id ? "" : <BsCheck2All className="check-blue" />}
               </span>
             </div>
-            {m.sender === user?._id ? "" : <BsFillCaretRightFill className="caret-right my-2" />}
+            {m.sender === user?._id ? <BsFillCaretRightFill className="caret-right my-2" /> : ""}
           </div>
         ))}
       </div>
