@@ -75,10 +75,10 @@ const Login = ({ history, location, match }: RouteComponentProps) => {
         <Form
           onSubmit={(e: React.FormEvent) => {
             handleSubmit({ e, logIn });
-            /* setTimeout(function () {
-              history.push("/");
-            }, 1000); */
-            if(user)history.push("/")
+            setTimeout(function () {
+              if(user)history.push("/")
+            }, 500);
+            
           }}>
           <Form.Control
             type='text'

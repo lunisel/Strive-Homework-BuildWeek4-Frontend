@@ -157,10 +157,10 @@ const Sidebar = ({history}: RouteComponentProps) => {
               {searchedUsers &&
                 query !== "" &&
                 searchedUsers.map((u) => (
-                  <>
                     <Row
                       className="single-chat-cont"
                       onClick={() => startChatOnSearch(u)}
+                      key={u._id}
                     >
                       <Col xs={2} className="chat-img-cont p-0">
                         <img
@@ -178,11 +178,9 @@ const Sidebar = ({history}: RouteComponentProps) => {
                         <hr className="separator-chats m-0" />
                       </Col>
                     </Row>
-                  </>
                 ))}
               {(!searchedUsers || query === "") &&
                 chats?.map((c) => (
-                  <>
                     <Row
                       className={
                         selectedChat?.members === c.members
@@ -192,6 +190,7 @@ const Sidebar = ({history}: RouteComponentProps) => {
                       onClick={(e: React.MouseEvent<HTMLElement>) => {
                         dispatch(addSelectedChat(c));
                       }}
+                      key={c._id}
                     >
                       <Col xs={2} className="chat-img-cont p-0">
                         <img
@@ -224,7 +223,6 @@ const Sidebar = ({history}: RouteComponentProps) => {
                         <hr className="separator-chats m-0" />
                       </Col>
                     </Row>
-                  </>
                 ))}
             </div>
           </div>

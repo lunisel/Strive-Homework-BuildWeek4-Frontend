@@ -38,6 +38,7 @@ export interface messagesInt {
     text: string;
     media?: string;
   };
+  _id: string
 }
 
 export interface membersInt{
