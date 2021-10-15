@@ -135,52 +135,60 @@ const Sidebar = ({ history }: RouteComponentProps) => {
 
   return (
     <div
-      className='side-bar'
+      className="side-bar"
       onMouseDown={() =>
         setTimeout(function () {
           setSearchUsers(null);
         }, 1000)
-      }>
+      }
+    >
       {settings ? (
         <Settings />
       ) : (
         <>
-          <div className='my-profile'>
-            <div className='left-side'>
-              <div className='profile-img-cont'>
+          <div className="my-profile">
+            <div className="left-side">
+              <div className="profile-img-cont">
                 <img
                   src={user!.avatar}
-                  alt='profile'
-                  className='img-fluid rounded-circle'
+                  alt="profile"
+                  className="img-fluid rounded-circle"
                 />
               </div>
 
-              <h5 className='m-0 my-profile-h5'>{user!.name}</h5>
+              <h5
+                className="m-0 my-profile-h5"
+                onClick={() => setSettings(true)}
+              >
+                {user!.name}
+              </h5>
             </div>
 
             <div className={dropdown ? "right-side active" : "right-side"}>
               <BsThreeDotsVertical
-                className='three-dots'
+                className="three-dots"
                 onClick={() => {
                   setDropdown(!dropdown);
                 }}
               />
               {dropdown ? (
-                <div className='dropdown-container'>
-                  <div className='dropdown-links'>New group</div>
+                <div className="dropdown-container">
+                  <div className="dropdown-links">New group</div>
                   <div
-                    className='dropdown-links'
-                    onClick={() => setSettings(true)}>
+                    className="dropdown-links"
+                    onClick={() => setSettings(true)}
+                  >
                     Settings
                   </div>
                   <Link
-                    to='/login'
-                    className='dropdown-links'
+                    to="/login"
+                    className="dropdown-links"
                     onClick={() => {
                       console.log("DISCONECTING");
                       dispatch(disconnectUser());
                       dispatch(disconectChats());
-                    }}>
+                    }}
+                  >
                     Log-out
                   </Link>
                 </div>
@@ -189,11 +197,11 @@ const Sidebar = ({ history }: RouteComponentProps) => {
               )}
             </div>
           </div>
-          <div className='search-cont'>
+          <div className="search-cont">
             <FormControl
-              type='text'
-              placeholder='Search or start a new chat'
-              className='search-input sidebar'
+              type="text"
+              placeholder="Search or start a new chat"
+              className="search-input sidebar"
               value={query}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setQuery(e.currentTarget.value)
@@ -205,29 +213,30 @@ const Sidebar = ({ history }: RouteComponentProps) => {
               }}
             />
           </div>
-          <div className='open-chats'>
-            <div className='single-chat-and-hr-cont'>
+          <div className="open-chats">
+            <div className="single-chat-and-hr-cont">
               {searchedUsers &&
                 query !== "" &&
                 searchedUsers.map((u) => (
                   <Row
-                    className='single-chat-cont'
+                    className="single-chat-cont"
                     onClick={() => openChatOnSearch(u)}
-                    key={u._id}>
-                    <Col xs={2} className='chat-img-cont p-0'>
+                    key={u._id}
+                  >
+                    <Col xs={2} className="chat-img-cont p-0">
                       <img
                         src={u.avatar}
-                        alt='profile'
-                        className='h-100 w-auto rounded-circle'
+                        alt="profile"
+                        className="h-100 w-auto rounded-circle"
                       />
                     </Col>
-                    <Col xs={10} className='chat-text-cont p-0 h-100'>
-                      <Row className='d-flex justify-content-between w-100 m-0 position-relative'>
-                        <Col xs={2} className='p-0 contact-name'>
+                    <Col xs={10} className="chat-text-cont p-0 h-100">
+                      <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                        <Col xs={2} className="p-0 contact-name">
                           {u.name}
                         </Col>
                       </Row>
-                      <hr className='separator-chats m-0' />
+                      <hr className="separator-chats m-0" />
                     </Col>
                   </Row>
                 ))}
@@ -242,22 +251,24 @@ const Sidebar = ({ history }: RouteComponentProps) => {
                     onClick={(e: React.MouseEvent<HTMLElement>) => {
                       dispatch(addSelectedChat(c));
                     }}
-                    key={c._id}>
-                    <Col xs={2} className='chat-img-cont p-0'>
+                    key={c._id}
+                  >
+                    <Col xs={2} className="chat-img-cont p-0">
                       <img
                         src={c.members.find((u) => u._id !== user?._id)?.avatar}
-                        alt='profile'
-                        className='h-100 w-auto rounded-circle'
+                        alt="profile"
+                        className="h-100 w-auto rounded-circle"
                       />
                     </Col>
-                    <Col xs={10} className='chat-text-cont p-0 h-100'>
-                      <Row className='d-flex justify-content-between w-100 m-0 position-relative'>
-                        <Col xs={7} className='p-0 contact-name'>
+                    <Col xs={10} className="chat-text-cont p-0 h-100">
+                      <Row className="d-flex justify-content-between w-100 m-0 position-relative">
+                        <Col xs={7} className="p-0 contact-name">
                           {c.members.find((u) => u._id !== user?._id)?.name}
                         </Col>
                         <Col
                           xs={3}
-                          className='p-0 time-last-message text-right pr-3'>
+                          className="p-0 time-last-message text-right pr-3"
+                        >
                           {() => {
                             let date = new Date(c.updatedAt);
                             let time = date.getHours();
@@ -266,11 +277,11 @@ const Sidebar = ({ history }: RouteComponentProps) => {
                         </Col>
                       </Row>
                       {c.history.length > 0 && (
-                        <Row className='w-100 m-0 last-message'>
+                        <Row className="w-100 m-0 last-message">
                           {c.history.slice(-1)[0].content.text}
                         </Row>
                       )}
-                      <hr className='separator-chats m-0' />
+                      <hr className="separator-chats m-0" />
                     </Col>
                   </Row>
                 ))}

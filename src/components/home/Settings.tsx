@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, KeyboardEvent } from "react";
 import { HiArrowLeft } from "react-icons/hi";
 import { FaCamera } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reduxStateInt, UserInt } from "../../usefull/interfaces";
+import { addCurrentUser } from "../../redux/actions/user";
 import "./styles.css";
 import Sidebar from "./Sidebar";
 
@@ -14,6 +15,7 @@ const Settings = () => {
   const user: UserInt | null = useSelector(
     (state: reduxStateInt) => state.user.currentUser
   );
+  const dispatch = useDispatch();
 
   const [form, setForm] = useState({
     avatar: user!.avatar,
@@ -22,39 +24,49 @@ const Settings = () => {
     status: user!.status,
   });
 
-  console.log(form);
-
   const changeImg = () => {
     inputFile.current.click();
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files![0].name);
-  };
+  /*  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files![0]);
+    try {
+      let response = fetch(`${process.env.REACT_APP_BE_URL}/users/me/avatar`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+        body: e.target.files![0]
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }; */
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const id = e.target.id;
-    console.log(id);
     setForm({
       ...form,
       [id]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (key: string, value: string) => {
     try {
       let response = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ [key]: value }),
       });
       if (response.ok) {
+        console.log(form);
         let updatedUser = await response.json();
-        console.log(updatedUser);
+        console.log("updated user ->", updatedUser);
+        dispatch(addCurrentUser(updatedUser));
       } else {
         console.log("SOMETHING WENT WRONG!");
       }
@@ -67,79 +79,92 @@ const Settings = () => {
     <>
       {settings ? (
         <>
-          <div className='top-bar-settings'>
+          <div className="top-bar-settings">
             <HiArrowLeft
-              className='arrow-icon-setting'
+              className="arrow-icon-setting"
               onClick={() => setSettings(!settings)}
             />
-            <span className='profile-setting-span'>Profile</span>
+            <span className="profile-setting-span">Profile</span>
           </div>
-          <div className='img-settings-cont'>
+          <div className="img-settings-cont">
             <img
               src={user!.avatar}
-              alt='profile'
-              className='w-50 h-auto rounded-circle'
+              alt="profile"
+              className="w-50 h-auto rounded-circle"
             />
-            <div className='hover-img-cont' onClick={() => changeImg()}>
+            <div className="hover-img-cont" onClick={() => changeImg()}>
               <input
-                type='file'
-                id='file'
+                type="file"
+                id="file"
                 ref={inputFile}
                 style={{ display: "none" }}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleFileUpload(e)
+                onChange={
+                  (e: React.ChangeEvent<HTMLInputElement>) => {}
+                  /* handleFileUpload(e) */
                 }
               />
               <img
-                src='https://placehold.it/100x100'
-                alt='profile'
-                className='h-100 w-auto rounded-circle'
+                src="https://placehold.it/100x100"
+                alt="profile"
+                className="h-100 w-auto rounded-circle"
               />
-              <div className='hover-change-pic'>
-                <FaCamera className='camera-icon' />
-                <span className='change-pic-text'>
+              <div className="hover-change-pic">
+                <FaCamera className="camera-icon" />
+                <span className="change-pic-text">
                   Change your profile picture
                 </span>
               </div>
             </div>
           </div>
-          <div className='other-fields-cont'>
-            <div className='inputs-container'>
-              <span className='inputs-label'>Your full name</span>
+          <div className="other-fields-cont">
+            <div className="inputs-container">
+              <span className="inputs-label">Your full name</span>
               <input
-                type='text'
-                id='name'
+                type="text"
+                id="name"
                 value={form.name}
                 //placeholder={user!.name}
-                className='input-field'
+                className="input-field"
                 onChange={handleChange}
-                onSubmit={handleSubmit}
+                onKeyPress={(e: KeyboardEvent) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(e.currentTarget.id, form.name);
+                  }
+                }}
               />
             </div>
 
-            <div className='inputs-container'>
-              <span className='inputs-label'>Your email</span>
+            <div className="inputs-container">
+              <span className="inputs-label">Your email</span>
               <input
-                type='text'
-                id='email'
+                type="text"
+                id="email"
                 value={form.email}
                 //placeholder={user!.email}
-                className='input-field'
+                className="input-field"
                 onChange={handleChange}
-                onSubmit={handleSubmit}
+                onKeyPress={(e: KeyboardEvent) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(e.currentTarget.id, form.email);
+                  }
+                }}
               />
             </div>
 
-            <div className='inputs-container'>
-              <span className='inputs-label'>Your status</span>
+            <div className="inputs-container mb-5">
+              <span className="inputs-label">Your status</span>
               <input
-                type='text'
-                id='status'
+                type="text"
+                id="status"
                 value={form.status}
                 //placeholder={user!.status}
-                className='input-field'
+                className="input-field"
                 onChange={handleChange}
-                onSubmit={handleSubmit}
+                onKeyPress={(e: KeyboardEvent) => {
+                  if (e.key === "Enter") {
+                    handleSubmit(e.currentTarget.id, form.status!);
+                  }
+                }}
               />
             </div>
           </div>
