@@ -4,17 +4,17 @@ import { Row, Col, FormControl } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { reduxStateInt, UserInt, roomsInt } from "../../usefull/interfaces";
 import {
-  reduxStateInt,
-  UserInt,
-  roomsInt
-} from "../../usefull/interfaces";
-import { addChatHistory, addSelectedChat, disconectChats } from "../../redux/actions/chats";
+  addChatHistory,
+  addSelectedChat,
+  disconectChats,
+} from "../../redux/actions/chats";
 import { disconnectUser } from "../../redux/actions/user";
 import Settings from "./Settings";
 import "./styles.css";
 
-const Sidebar = ({history}: RouteComponentProps) => {
+const Sidebar = ({ history }: RouteComponentProps) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [settings, setSettings] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
@@ -67,9 +67,33 @@ const Sidebar = ({history}: RouteComponentProps) => {
       console.log(err);
     }
   };
-
-  const startChatOnSearch = (u: UserInt) => {
+  
+  const openChatOnSearch = async (u: UserInt) => {
     console.log("Selected", u);
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_BE_URL}/chats/${u._id}/check`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.ok) {
+        let { _id } = await response.json();
+        console.log(_id)
+        // If chat exists
+        // I want to open the chat, as if I just clicked on a chat
+        // onClick={(e: React.MouseEvent<HTMLElement>) => {
+        //   dispatch(addSelectedChat(c));
+        // }}
+      } else {
+        // POST "/chats/id/openchat" with access token
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -79,55 +103,52 @@ const Sidebar = ({history}: RouteComponentProps) => {
 
   return (
     <div
-      className="side-bar"
+      className='side-bar'
       onMouseDown={() =>
         setTimeout(function () {
           setSearchUsers(null);
         }, 1000)
-      }
-    >
+      }>
       {settings ? (
         <Settings />
       ) : (
         <>
-          <div className="my-profile">
-            <div className="left-side">
-              <div className="profile-img-cont">
+          <div className='my-profile'>
+            <div className='left-side'>
+              <div className='profile-img-cont'>
                 <img
                   src={user!.avatar}
-                  alt="profile"
-                  className="img-fluid rounded-circle"
+                  alt='profile'
+                  className='img-fluid rounded-circle'
                 />
               </div>
 
-              <h5 className="m-0 my-profile-h5">{user!.name}</h5>
+              <h5 className='m-0 my-profile-h5'>{user!.name}</h5>
             </div>
 
             <div className={dropdown ? "right-side active" : "right-side"}>
               <BsThreeDotsVertical
-                className="three-dots"
+                className='three-dots'
                 onClick={() => {
                   setDropdown(!dropdown);
                 }}
               />
               {dropdown ? (
-                <div className="dropdown-container">
-                  <div className="dropdown-links">New group</div>
+                <div className='dropdown-container'>
+                  <div className='dropdown-links'>New group</div>
                   <div
-                    className="dropdown-links"
-                    onClick={() => setSettings(true)}
-                  >
+                    className='dropdown-links'
+                    onClick={() => setSettings(true)}>
                     Settings
                   </div>
                   <Link
-                    to="/login"
-                    className="dropdown-links"
+                    to='/login'
+                    className='dropdown-links'
                     onClick={() => {
                       console.log("DISCONECTING");
                       dispatch(disconnectUser());
-                      dispatch(disconectChats())
-                    }}
-                  >
+                      dispatch(disconectChats());
+                    }}>
                     Log-out
                   </Link>
                 </div>
@@ -136,11 +157,11 @@ const Sidebar = ({history}: RouteComponentProps) => {
               )}
             </div>
           </div>
-          <div className="search-cont">
+          <div className='search-cont'>
             <FormControl
-              type="text"
-              placeholder="Search or start a new chat"
-              className="search-input sidebar"
+              type='text'
+              placeholder='Search or start a new chat'
+              className='search-input sidebar'
               value={query}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setQuery(e.currentTarget.value)
@@ -152,77 +173,72 @@ const Sidebar = ({history}: RouteComponentProps) => {
               }}
             />
           </div>
-          <div className="open-chats">
-            <div className="single-chat-and-hr-cont">
+          <div className='open-chats'>
+            <div className='single-chat-and-hr-cont'>
               {searchedUsers &&
                 query !== "" &&
                 searchedUsers.map((u) => (
-                    <Row
-                      className="single-chat-cont"
-                      onClick={() => startChatOnSearch(u)}
-                      key={u._id}
-                    >
-                      <Col xs={2} className="chat-img-cont p-0">
-                        <img
-                          src={u.avatar}
-                          alt="profile"
-                          className="h-100 w-auto rounded-circle"
-                        />
-                      </Col>
-                      <Col xs={10} className="chat-text-cont p-0 h-100">
-                        <Row className="d-flex justify-content-between w-100 m-0 position-relative">
-                          <Col xs={2} className="p-0 contact-name">
-                            {u.name}
-                          </Col>
-                        </Row>
-                        <hr className="separator-chats m-0" />
-                      </Col>
-                    </Row>
+                  <Row
+                    className='single-chat-cont'
+                    onClick={() => openChatOnSearch(u)}
+                    key={u._id}>
+                    <Col xs={2} className='chat-img-cont p-0'>
+                      <img
+                        src={u.avatar}
+                        alt='profile'
+                        className='h-100 w-auto rounded-circle'
+                      />
+                    </Col>
+                    <Col xs={10} className='chat-text-cont p-0 h-100'>
+                      <Row className='d-flex justify-content-between w-100 m-0 position-relative'>
+                        <Col xs={2} className='p-0 contact-name'>
+                          {u.name}
+                        </Col>
+                      </Row>
+                      <hr className='separator-chats m-0' />
+                    </Col>
+                  </Row>
                 ))}
               {(!searchedUsers || query === "") &&
                 chats?.map((c) => (
-                    <Row
-                      className={
-                        selectedChat?.members === c.members
-                          ? "single-chat-cont active"
-                          : "single-chat-cont"
-                      }
-                      onClick={(e: React.MouseEvent<HTMLElement>) => {
-                        dispatch(addSelectedChat(c));
-                      }}
-                      key={c._id}
-                    >
-                      <Col xs={2} className="chat-img-cont p-0">
-                        <img
-                          src={
-                            c.members.find((u) => u._id !== user?._id)?.avatar
-                          }
-                          alt="profile"
-                          className="h-100 w-auto rounded-circle"
-                        />
-                      </Col>
-                      <Col xs={10} className="chat-text-cont p-0 h-100">
-                        <Row className="d-flex justify-content-between w-100 m-0 position-relative">
-                          <Col xs={7} className="p-0 contact-name">
-                            {c.members.find((u) => u._id !== user?._id)?.name}
-                          </Col>
-                          <Col
-                            xs={3}
-                            className="p-0 time-last-message text-right pr-3"
-                          >
-                            {() => {
-                              let date = new Date(c.updatedAt);
-                              let time = date.getHours();
-                              console.log("TIMEEEEE", time);
-                            }}
-                          </Col>
-                        </Row>
-                        <Row className="w-100 m-0 last-message">
-                          {c.history.slice(-1)[0].content.text}
-                        </Row>
-                        <hr className="separator-chats m-0" />
-                      </Col>
-                    </Row>
+                  <Row
+                    className={
+                      selectedChat?.members === c.members
+                        ? "single-chat-cont active"
+                        : "single-chat-cont"
+                    }
+                    onClick={(e: React.MouseEvent<HTMLElement>) => {
+                      dispatch(addSelectedChat(c));
+                    }}
+                    key={c._id}>
+                    <Col xs={2} className='chat-img-cont p-0'>
+                      <img
+                        src={c.members.find((u) => u._id !== user?._id)?.avatar}
+                        alt='profile'
+                        className='h-100 w-auto rounded-circle'
+                      />
+                    </Col>
+                    <Col xs={10} className='chat-text-cont p-0 h-100'>
+                      <Row className='d-flex justify-content-between w-100 m-0 position-relative'>
+                        <Col xs={7} className='p-0 contact-name'>
+                          {c.members.find((u) => u._id !== user?._id)?.name}
+                        </Col>
+                        <Col
+                          xs={3}
+                          className='p-0 time-last-message text-right pr-3'>
+                          {() => {
+                            let date = new Date(c.updatedAt);
+                            let time = date.getHours();
+                            console.log("TIMEEEEE", time);
+                          }}
+                        </Col>
+                      </Row>
+                      <Row className='w-100 m-0 last-message'>
+                        {c.history.slice(-1)[0].content.text}
+                      </Row>
+                      <hr className='separator-chats m-0' />
+                    </Col>
+                  </Row>
                 ))}
             </div>
           </div>

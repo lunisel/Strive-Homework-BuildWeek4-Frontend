@@ -15,6 +15,8 @@ const Settings = () => {
     (state: reduxStateInt) => state.user.currentUser
   );
 
+  console.log("USER AT SETTINGS TSX:", user)
+
   const changeImg = () => {
    inputFile.current.click();
   };
