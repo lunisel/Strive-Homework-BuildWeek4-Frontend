@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import Chat from "./Chat";
 import "./styles.css";
 import { io } from "socket.io-client";
 
-const Home = () => {
+const Home = ({history}: RouteComponentProps) => {
   const ADDRESS = "http://localhost:3001";
   const socket = io(ADDRESS, { transports: ["websocket"] });
 
@@ -58,8 +59,12 @@ const Home = () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const profile = await response.json();
-    console.log("HERE I AM=>", profile);
+    if (response.ok) {
+      const profile = await response.json();
+      console.log("HERE I AM=>", profile);
+    } else {
+      history.push("/login")
+    }
   };
 
   /* const getMyChatHistory = async () => {

@@ -1,4 +1,5 @@
 import { useEffect, useState, KeyboardEvent } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Row, Col, Form, FormControl } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ import { disconnectUser } from "../../redux/actions/user";
 import Settings from "./Settings";
 import "./styles.css";
 
-const Sidebar = () => {
+const Sidebar = ({history}: RouteComponentProps) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [settings, setSettings] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
@@ -48,7 +49,7 @@ const Sidebar = () => {
         console.log("CHAT HISTORY SIDEBAR", data);
         dispatch(addChatHistory(data));
       } else {
-        console.log("Something went wrong");
+        history.push("/login");
       }
     } catch (err) {
       console.log(err);
@@ -234,4 +235,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default withRouter(Sidebar);

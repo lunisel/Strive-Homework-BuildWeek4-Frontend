@@ -17,24 +17,34 @@ function App() {
   const user = useSelector((state: reduxStateInt) => state.user.currentUser);
 
   return (
-    <div className="App">
+    <div className='App'>
       <BrowserRouter>
         <Route
           exact
-          path="/login"
+          path='/login'
           render={(routerProps: RouteComponentProps) => (
             <Loggin {...routerProps} />
           )}
         />
         <Route
           exact
-          path="/signup"
+          path='/signup'
           render={(routerProps: RouteComponentProps) => (
             <SignUp {...routerProps} />
           )}
         />
-        <Route exact path="/">
-          {user ? <Home /> : <Redirect to="/login" />}
+        <Route exact path='/'>
+          {user ? (
+            <Route
+              exact
+              path='/'
+              render={(routerProps: RouteComponentProps) => (
+                <Home {...routerProps} />
+              )}
+            />
+          ) : (
+            <Redirect to='/login' />
+          )}
         </Route>
       </BrowserRouter>
     </div>
